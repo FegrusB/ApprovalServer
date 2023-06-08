@@ -10,6 +10,8 @@ CREATE TABLE documents (
     description TEXT(500),
     document_link VARCHAR(255),
     current_approver INT,
+    originator int,
+    Foreign Key (originator) REFERENCES  users (user_id),
     FOREIGN KEY (current_approver) REFERENCES users (user_id)
 );
 
