@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "chain", schema = "ApprovalServerDatabase")
+@Table(name = "chain", schema = "doc_approval")
 public class ChainModel {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
