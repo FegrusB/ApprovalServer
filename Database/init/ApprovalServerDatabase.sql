@@ -6,32 +6,33 @@ CREATE TABLE documents (
     document_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     customer VARCHAR(30) NOT NULL,
     project VARCHAR(30) NOT NULL,
-    document_link VARCHAR(255)
+    name VARCHAR(30) NOT NULL,
+    description TEXT(500),
+    document_link VARCHAR(255),
+    current_approver INT,
+    FOREIGN KEY (current_approver) REFERENCES users (user_id)
 );
 
 CREATE TABLE users (
     user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100),
-    pass_hash VARCHAR(255),
-    token VARCHAR(255),
-    UNIQUE (token)
+    email VARCHAR(100)
 );
 
 CREATE TABLE chain (
-    chain_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     document_id INT NOT NULL,
     user_id INT NOT NULL,
     position INT NOT NULL,
+    approved BOOLEAN,
     time_stamp DATETIME,
     FOREIGN KEY (document_id) REFERENCES documents (document_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
-INSERT INTO documents (customer, project, document_link) VALUES ('HMRC', 'Springboot-app', 'sharepoint.com/test');
-INSERT INTO documents (customer, project, document_link) VALUES ('DWP', 'AWS Migration', 'sharepoint.com/test');
-INSERT INTO documents (customer, project, document_link) VALUES ('NASA', 'Machine learning project', 'sharepoint.com/test');
-INSERT INTO documents (customer, project, document_link) VALUES ('V1 Newcastle', 'New office Strawberry place', 'sharepoint.com/test');
+INSERT INTO documents (customer, project, name, description, document_link,current_approver) VALUES ('HMRC', 'Springboot-app', 'doc1', 'A very important document', 'sharepoint.com/test',1);
+INSERT INTO documents (customer, project, name, description, document_link,current_approver) VALUES ('DWP', 'AWS Migration','Migration Plan','Overview of migration strategy', 'sharepoint.com/test',7);
+INSERT INTO documents (customer, project, name, description, document_link,current_approver) VALUES ('NASA', 'Machine learning project','Project Overview','Overview of requirements and timeline of project', 'sharepoint.com/test',3);
+INSERT INTO documents (customer, project, name, description, document_link,current_approver) VALUES ('V1 Newcastle', 'New office','Tenancy Agreement','Tenancy Contract for new office', 'sharepoint.com/test',7);
 
 INSERT INTO users (user_name, email) VALUES ('Andrew H','Andrew.H@version1.com');
 INSERT INTO users (user_name, email) VALUES ('Arsalan A','Arsalan.A@version1.com');
