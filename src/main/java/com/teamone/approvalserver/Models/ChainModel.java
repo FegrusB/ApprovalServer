@@ -1,16 +1,19 @@
 package com.teamone.approvalserver.Models;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "chain", schema = "ApprovalServerDatabase", catalog = "")
+@Table(name = "chain", schema = "ApprovalServerDatabase")
 public class ChainModel {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name ="chain_id", nullable = false )
+    private Long id;
+
     @Basic
     @Column(name = "document_id", nullable = false)
     private int documentId;
@@ -26,6 +29,11 @@ public class ChainModel {
     @Basic
     @Column(name = "time_stamp", nullable = true)
     private Timestamp timeStamp;
+
+
+    public void setId(Long id) {this.id = id;}
+
+    public Long getId() {return id;}
 
     public int getDocumentId() {
         return documentId;
@@ -79,4 +87,6 @@ public class ChainModel {
     public int hashCode() {
         return Objects.hash(documentId, userId, position, approved, timeStamp);
     }
+
+
 }

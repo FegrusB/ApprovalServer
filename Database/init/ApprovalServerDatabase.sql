@@ -25,6 +25,7 @@ CREATE TABLE documents (
 
 
 CREATE TABLE chain (
+    chain_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     document_id INT NOT NULL,
     user_id INT NOT NULL,
     position INT NOT NULL,
