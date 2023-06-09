@@ -12,7 +12,7 @@ public class ChainModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name ="chain_id", nullable = false )
-    private Long id;
+    private int id;
 
     @Basic
     @Column(name = "document_id", nullable = false)
@@ -25,15 +25,15 @@ public class ChainModel {
     private int position;
     @Basic
     @Column(name = "approved", nullable = true)
-    private Byte approved;
+    private boolean approved;
     @Basic
     @Column(name = "time_stamp", nullable = true)
     private Timestamp timeStamp;
 
 
-    public void setId(Long id) {this.id = id;}
+    public void setId(int id) {this.id = id;}
 
-    public Long getId() {return id;}
+    public int getId() {return id;}
 
     public int getDocumentId() {
         return documentId;
@@ -59,11 +59,11 @@ public class ChainModel {
         this.position = position;
     }
 
-    public Byte getApproved() {
+    public boolean getApproved() {
         return approved;
     }
 
-    public void setApproved(Byte approved) {
+    public void setApproved(boolean approved) {
         this.approved = approved;
     }
 
