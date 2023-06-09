@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "documents", schema = "doc_approval")
-public class DocumentsModel {
+public class DocumentModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "document_id", nullable = false)
@@ -101,7 +101,7 @@ public class DocumentsModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DocumentsModel that = (DocumentsModel) o;
+        DocumentModel that = (DocumentModel) o;
         return documentId == that.documentId && Objects.equals(customer, that.customer) && Objects.equals(project, that.project) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(documentLink, that.documentLink) && Objects.equals(currentApprover, that.currentApprover) && Objects.equals(originator, that.originator);
     }
 

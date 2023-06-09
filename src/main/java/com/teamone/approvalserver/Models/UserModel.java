@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users", schema = "doc_approval")
-public class UsersModel {
+public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "user_id", nullable = false)
@@ -44,7 +44,7 @@ public class UsersModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UsersModel that = (UsersModel) o;
+        UserModel that = (UserModel) o;
         return userId == that.userId && Objects.equals(userName, that.userName) && Objects.equals(email, that.email);
     }
 
