@@ -104,7 +104,6 @@ public class DocumentModel {
 
     public List<ChainModel> getChainList() {return chainList;}
 
-    public void setChainList(List<ChainModel> chainList) {this.chainList = chainList;}
 
     @Override
     public boolean equals(Object o) {

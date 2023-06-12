@@ -1,5 +1,6 @@
 package com.teamone.approvalserver.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -15,7 +16,7 @@ public class ChainModel {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "document_id", referencedColumnName = "document_id", nullable = false)
+    @JoinColumn(name = "document_id", nullable = false)
     private DocumentModel documentId;
     @Basic
     @Column(name = "user_id", nullable = false)
@@ -30,17 +31,24 @@ public class ChainModel {
     @Column(name = "time_stamp", nullable = true)
     private Timestamp timeStamp;
 
+    public ChainModel(int id, DocumentModel documentId, int userId, int position, boolean approved, Timestamp timeStamp) {
+        this.id = id;
+        this.documentId = documentId;
+        this.userId = userId;
+        this.position = position;
+        this.approved = approved;
+        this.timeStamp = timeStamp;
+    }
+
+    public ChainModel(){}
 
     public void setId(int id) {this.id = id;}
 
     public int getId() {return id;}
 
+    @JsonIgnore
     public DocumentModel getDocumentId() {
         return documentId;
-    }
-
-    public void setDocumentId(DocumentModel documentId) {
-        this.documentId = documentId;
     }
 
     public int getUserId() {
