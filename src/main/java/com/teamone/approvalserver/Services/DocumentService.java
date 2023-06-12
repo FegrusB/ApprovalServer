@@ -4,9 +4,8 @@ import com.teamone.approvalserver.Models.DocumentModel;
 import com.teamone.approvalserver.Repositories.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This Service constructs Document and chain objects to be Inserted into the database.
@@ -14,10 +13,19 @@ import java.util.List;
 @Service
 public class DocumentService {
 
+    private final DocumentRepository documentRepository;
+
     @Autowired
-    private DocumentRepository documentRepository;
-    public List<DocumentModel> getDocumentsByUser(Integer userId) {
-        List<DocumentModel> docList = documentRepository.findAll();
+    public DocumentService(DocumentRepository documentRepository) {
+        this.documentRepository = documentRepository;
+    }
+
+   public Optional<DocumentModel> getDocumentInfo(Integer documentId) {
+       return documentRepository.findById(documentId);
+   }
+
+   public Optional<DocumentModel> getDocumentsByUser(Integer userId) {
+       Optional<DocumentModel> docList = documentRepository.findById(userId);
         return docList;
     }
 }

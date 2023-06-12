@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
 import java.util.List;
 
 @RestController
@@ -16,20 +17,22 @@ import java.util.List;
 public class ApprovalServerController {
 
     private final DocumentService documentService;
+    private final UserService userService;
+
+    @Autowired
+    public ApprovalServerController(UserService userService, DocumentService documentService) {
+        this.userService = userService;
+        this.documentService = documentService;
+    }
+
+    @GetMapping("/{documentId}/info")
+    public Optional<DocumentModel> getDocumentInfo(@PathVariable("documentId") Integer documentId) {
+            return documentService.getDocumentInfo(documentId);
+    }
 
     @GetMapping("/{userId}")
     public List<DocumentModel> getDocumentsByUser(@PathVariable(value="userId") Integer userId) {
         return documentService.getDocumentsByUser(userId);
     }
 
-
-
-    UserService userService;
-
-    @Autowired
-    public ApprovalServerController(UserService userService, DocumentService documentService) {
-
-        this.userService = userService;
-        this.documentService = documentService;
-    }
 }
