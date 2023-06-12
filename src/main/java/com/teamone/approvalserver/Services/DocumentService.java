@@ -4,7 +4,6 @@ import com.teamone.approvalserver.Models.DocumentModel;
 import com.teamone.approvalserver.Repositories.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -25,7 +24,6 @@ public class DocumentService {
    }
 
    public Optional<DocumentModel> getDocumentsByUser(Integer userId) {
-       Optional<DocumentModel> docList = documentRepository.findById(userId);
-        return docList;
+       return documentRepository.findAllByChainList_userId(userId);
     }
 }

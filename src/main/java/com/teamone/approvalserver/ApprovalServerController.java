@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Optional;
-import java.util.List;
 
 @RestController
 @RequestMapping("/V1Approved")
@@ -31,7 +29,7 @@ public class ApprovalServerController {
     }
 
     @GetMapping("/{userId}")
-    public List<DocumentModel> getDocumentsByUser(@PathVariable(value="userId") Integer userId) {
+    public Optional<DocumentModel> getDocumentsByUser(@PathVariable(value="userId") Integer userId) {
         return documentService.getDocumentsByUser(userId);
     }
 
