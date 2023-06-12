@@ -19,6 +19,8 @@ public class UserModel {
     @Column(name = "email", nullable = true, length = 100)
     private String email;
 
+
+
     public int getUserId() {
         return userId;
     }
