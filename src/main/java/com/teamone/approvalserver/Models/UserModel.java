@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users", schema = "doc_approval")
+@Table(name = "users", schema = "mydb")
 public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
