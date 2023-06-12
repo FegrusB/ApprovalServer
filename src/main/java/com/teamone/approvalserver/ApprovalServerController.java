@@ -32,4 +32,9 @@ public class ApprovalServerController {
         return documentService.getDocumentsByUser(userId);
     }
 
+    @PutMapping("/approval")
+    public void approveDocument(@RequestParam Integer userId, @RequestParam Integer documentId) {
+        documentService.approveDocument(userId, documentId);
+    }
+
 }

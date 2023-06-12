@@ -38,6 +38,21 @@ public class DocumentModel {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "documentId")
     private List<ChainModel> chainList;
 
+    /**
+     * This method will update the document current approver to the next user in the chain
+     */
+    public void UpdateToNextApprover() {
+        boolean set = false;
+        int i = 0;
+        while(!set) {
+            if(chainList.get(i).getUserId() == currentApprover) {
+                currentApprover = chainList.get(++i).getUserId();
+                set = true;
+            }
+            i++;
+        }
+    }
+
     public int getDocumentId() {
         return documentId;
     }

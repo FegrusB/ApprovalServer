@@ -1,6 +1,7 @@
 package com.teamone.approvalserver.Repositories;
 
 import com.teamone.approvalserver.Models.ChainModel;
+import com.teamone.approvalserver.Models.DocumentModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ChainRepository extends JpaRepository<ChainModel, Integer> {
+    ChainModel getByDocumentIdAndUserId(DocumentModel documentId, Integer userId);
+
+
+
 }
