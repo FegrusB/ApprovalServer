@@ -29,8 +29,7 @@ public class ApprovalServerController {
 
     @GetMapping("/docs/byUser")
     public List<Optional<DocumentModel>> getDocumentsByUser(@RequestParam Integer userId) {
-        List<Optional<DocumentModel>> out  = documentService.getDocumentsByUser(userId);
-        return out;
+        return documentService.getDocumentsByUser(userId);
     }
 
 }
