@@ -6,6 +6,7 @@ import com.teamone.approvalserver.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,8 +28,9 @@ public class ApprovalServerController {
     }
 
     @GetMapping("/docs/byUser")
-    public Optional<DocumentModel> getDocumentsByUser(@RequestParam Integer userId) {
-        return documentService.getDocumentsByUser(userId);
+    public List<Optional<DocumentModel>> getDocumentsByUser(@RequestParam Integer userId) {
+        List<Optional<DocumentModel>> out  = documentService.getDocumentsByUser(userId);
+        return out;
     }
 
 }

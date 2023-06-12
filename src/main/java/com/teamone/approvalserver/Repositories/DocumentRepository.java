@@ -3,6 +3,8 @@ package com.teamone.approvalserver.Repositories;
 import com.teamone.approvalserver.Models.DocumentModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -10,7 +12,6 @@ import java.util.Optional;
  */
 @Repository
 public interface DocumentRepository extends JpaRepository<DocumentModel, Integer> {
-
-    Optional<DocumentModel> findAllByChainList_userId(Integer userId);
+    List<Optional<DocumentModel>> findAllByChainList_userId(Integer userId);
 
 }
