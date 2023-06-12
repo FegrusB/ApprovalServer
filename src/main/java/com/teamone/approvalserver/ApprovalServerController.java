@@ -4,10 +4,8 @@ import com.teamone.approvalserver.Models.DocumentModel;
 import com.teamone.approvalserver.Services.DocumentService;
 import com.teamone.approvalserver.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Optional;
 
 @RestController
@@ -23,13 +21,13 @@ public class ApprovalServerController {
         this.documentService = documentService;
     }
 
-    @GetMapping("/{documentId}/info")
-    public Optional<DocumentModel> getDocumentInfo(@PathVariable("documentId") Integer documentId) {
+    @GetMapping("/docs/docInfo")
+    public Optional<DocumentModel> getDocumentInfo(@RequestParam Integer documentId) {
             return documentService.getDocumentInfo(documentId);
     }
 
-    @GetMapping("/{userId}")
-    public Optional<DocumentModel> getDocumentsByUser(@PathVariable(value="userId") Integer userId) {
+    @GetMapping("/docs/byUser")
+    public Optional<DocumentModel> getDocumentsByUser(@RequestParam Integer userId) {
         return documentService.getDocumentsByUser(userId);
     }
 
