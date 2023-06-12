@@ -14,9 +14,9 @@ public class ChainModel {
     @Column(name ="chain_id", nullable = false )
     private int id;
 
-    @Basic
-    @Column(name = "document_id", nullable = false)
-    private int documentId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "document_id", referencedColumnName = "document_id", nullable = false)
+    private DocumentModel documentId;
     @Basic
     @Column(name = "user_id", nullable = false)
     private int userId;
@@ -35,11 +35,11 @@ public class ChainModel {
 
     public int getId() {return id;}
 
-    public int getDocumentId() {
+    public DocumentModel getDocumentId() {
         return documentId;
     }
 
-    public void setDocumentId(int documentId) {
+    public void setDocumentId(DocumentModel documentId) {
         this.documentId = documentId;
     }
 

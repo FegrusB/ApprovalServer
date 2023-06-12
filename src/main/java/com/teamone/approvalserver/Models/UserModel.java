@@ -7,6 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "users", schema = "mydb")
 public class UserModel {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "user_id", nullable = false)
@@ -34,9 +35,7 @@ public class UserModel {
         this.userName = userName;
     }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() {return email;}
 
     public void setEmail(String email) {this.email = email;}
 

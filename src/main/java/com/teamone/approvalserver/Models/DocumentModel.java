@@ -2,11 +2,13 @@ package com.teamone.approvalserver.Models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "documents", schema = "mydb")
 public class DocumentModel {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "document_id", nullable = false)
@@ -32,6 +34,9 @@ public class DocumentModel {
     @Basic
     @Column(name = "originator", nullable = true)
     private Integer originator;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "documentId")
+    private List<ChainModel> chainList;
 
     public int getDocumentId() {
         return documentId;
@@ -96,6 +101,10 @@ public class DocumentModel {
     public void setOriginator(Integer originator) {
         this.originator = originator;
     }
+
+    public List<ChainModel> getChainList() {return chainList;}
+
+    public void setChainList(List<ChainModel> chainList) {this.chainList = chainList;}
 
     @Override
     public boolean equals(Object o) {
