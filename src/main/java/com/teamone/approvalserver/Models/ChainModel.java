@@ -55,7 +55,12 @@ public class ChainModel {
     }
 
     @JsonIgnore
-    public UserModel getUserId() {
+    public UserModel getUserId() {return userId;}
+
+    @JsonIgnore
+    public void setDocumentId(DocumentModel documentId) {
+        this.documentId = documentId;
+    }
 
     @JsonIgnore
     public void setUserId( UserModel userId) {
