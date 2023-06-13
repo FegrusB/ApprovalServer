@@ -77,6 +77,13 @@ public class DocumentService {
      * @param documentId
      */
     public void deleteDocument(Integer documentId) {
-        documentRepository.deleteById(documentId);
+        //get the document model out of the database
+        DocumentModel documentModel = documentRepository.getReferenceById(documentId);
+
+        //itterate through the chainlist and delete each chain entity
+        for(ChainModel chainModel : documentModel.getChainList()) {
+            chainRepository.delete(chainModel);
+        }
+        documentRepository.delete(documentModel);
     }
 }
