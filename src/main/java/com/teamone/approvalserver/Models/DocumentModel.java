@@ -45,8 +45,8 @@ public class DocumentModel {
         boolean set = false;
         int i = 0;
         while(!set) {
-            if(chainList.get(i).getUserId() == currentApprover) {
-                currentApprover = chainList.get(++i).getUserId();
+            if(chainList.get(i).getUserId().getUserId() == currentApprover) {
+                currentApprover = chainList.get(++i).getUserId().getUserId();
                 set = true;
             }
             i++;

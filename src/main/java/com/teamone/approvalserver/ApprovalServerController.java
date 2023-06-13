@@ -1,6 +1,7 @@
 package com.teamone.approvalserver;
 
 import com.teamone.approvalserver.Models.DocumentModel;
+import com.teamone.approvalserver.Models.UserModel;
 import com.teamone.approvalserver.Services.DocumentService;
 import com.teamone.approvalserver.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,10 @@ public class ApprovalServerController {
     @PostMapping("/addDocument")
     public void addDocument(@RequestBody DocumentModel documentModel) {
         documentService.addDocument(documentModel);
+    }
+
+    @GetMapping("/chain/users")
+    public List<Optional<UserModel>> getUsersByDocuments(@RequestParam Integer documentId) {
+        return userService.getUsersByDocument(documentId);
     }
 }
