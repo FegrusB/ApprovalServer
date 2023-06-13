@@ -18,6 +18,7 @@ public class ChainModel {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "document_id", nullable = false)
     private DocumentModel documentId;
+
     @Basic
     @Column(name = "user_id", nullable = false)
     private int userId;
@@ -49,6 +50,11 @@ public class ChainModel {
     @JsonIgnore
     public DocumentModel getDocumentId() {
         return documentId;
+    }
+
+    @JsonIgnore
+    public void setDocumentId(DocumentModel documentId) {
+        this.documentId = documentId;
     }
 
     public int getUserId() {
