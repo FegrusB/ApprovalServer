@@ -40,7 +40,14 @@ public class ApprovalServerController {
         documentService.approveDocument(userId, documentId);
     }
 
-
+    @DeleteMapping("/delete/{documentId}")
+    public void deleteDocument(@PathVariable(name="documentId") Integer documentId) {
+        documentService.deleteDocument(documentId);
+    }
+    /**
+     * This Method will add a document to approval process including it's chain of approvers.
+     * @param documentModel
+     */
     @PostMapping("/addDocument")
     public void addDocument(@RequestBody DocumentModel documentModel) {
         documentService.addDocument(documentModel);
@@ -50,4 +57,5 @@ public class ApprovalServerController {
     public List<UserModel> getUsersByDocuments(@RequestParam Integer documentId) {
         return chainService.getUsersByDocument(documentId);
     }
+
 }

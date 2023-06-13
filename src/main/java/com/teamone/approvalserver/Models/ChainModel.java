@@ -19,9 +19,11 @@ public class ChainModel {
     @JoinColumn(name = "document_id", nullable = false)
     private DocumentModel documentId;
 
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private UserModel userId;
+
     @Basic
     @Column(name = "position", nullable = false)
     private int position;
@@ -54,8 +56,7 @@ public class ChainModel {
 
     @JsonIgnore
     public UserModel getUserId() {
-        return userId;
-    }
+
     @JsonIgnore
     public void setUserId( UserModel userId) {
         this.userId = userId;

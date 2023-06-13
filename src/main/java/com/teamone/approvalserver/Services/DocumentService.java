@@ -85,10 +85,30 @@ public class DocumentService {
         currentDoc.UpdateToNextApprover();
         documentRepository.save(currentDoc);
     }
+  
+    /**
+     * This method deletes a document from the document table by documentId.
+     * @param documentId
+     */
+    public void deleteDocument(Integer documentId) {
+        //get the document model out of the database
+        DocumentModel documentModel = documentRepository.getReferenceById(documentId);
 
+        //itterate through the chainlist and delete each chain entity
+        for(ChainModel chainModel : documentModel.getChainList()) {
+            chainRepository.delete(chainModel);
+        }
+        documentRepository.delete(documentModel);
+     }
+  
     public void addDocument(DocumentModel documentModel) {
-
+        //save document to the database and auto generate an ID
         documentRepository.save(documentModel);
 
+        //itterate through the chainList adding document ID and then adding to database
+        for(ChainModel chainModel : documentModel.getChainList()) {
+            chainModel.setDocumentId(documentModel);
+            chainRepository.save(chainModel);
+        }
     }
 }
