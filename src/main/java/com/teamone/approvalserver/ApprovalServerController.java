@@ -37,7 +37,10 @@ public class ApprovalServerController {
         documentService.approveDocument(userId, documentId);
     }
 
-
+    /**
+     * This Method will add a document to approval process including it's chain of approvers.
+     * @param documentModel
+     */
     @PostMapping("/addDocument")
     public void addDocument(@RequestBody DocumentModel documentModel) {
         documentService.addDocument(documentModel);
