@@ -73,8 +73,11 @@ public class DocumentService {
     }
 
     public void addDocument(DocumentModel documentModel) {
-
         documentRepository.save(documentModel);
 
+        for(ChainModel chainModel : documentModel.getChainList()) {
+            chainModel.setDocumentId(documentModel);
+            chainRepository.save(chainModel);
+        }
     }
 }
