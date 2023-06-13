@@ -15,13 +15,15 @@ public class ChainModel {
     @Column(name ="chain_id", nullable = false )
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "document_id", nullable = false)
     private DocumentModel documentId;
 
-    @Basic
-    @Column(name = "user_id", nullable = false)
-    private int userId;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserModel userId;
+
     @Basic
     @Column(name = "position", nullable = false)
     private int position;
@@ -32,7 +34,7 @@ public class ChainModel {
     @Column(name = "time_stamp", nullable = true)
     private Timestamp timeStamp;
 
-    public ChainModel(int id, DocumentModel documentId, int userId, int position, boolean approved, Timestamp timeStamp) {
+    public ChainModel(int id, DocumentModel documentId, UserModel userId, int position, boolean approved, Timestamp timeStamp) {
         this.id = id;
         this.documentId = documentId;
         this.userId = userId;
@@ -53,15 +55,10 @@ public class ChainModel {
     }
 
     @JsonIgnore
-    public void setDocumentId(DocumentModel documentId) {
-        this.documentId = documentId;
-    }
+    public UserModel getUserId() {
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
+    @JsonIgnore
+    public void setUserId( UserModel userId) {
         this.userId = userId;
     }
 

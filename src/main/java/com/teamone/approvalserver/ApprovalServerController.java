@@ -1,6 +1,8 @@
 package com.teamone.approvalserver;
 
 import com.teamone.approvalserver.Models.DocumentModel;
+import com.teamone.approvalserver.Models.UserModel;
+import com.teamone.approvalserver.Services.ChainService;
 import com.teamone.approvalserver.Services.DocumentService;
 import com.teamone.approvalserver.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,12 @@ public class ApprovalServerController {
 
     private final DocumentService documentService;
     private final UserService userService;
-
+    private final ChainService chainService;
     @Autowired
-    public ApprovalServerController(UserService userService, DocumentService documentService) {
+    public ApprovalServerController(UserService userService, DocumentService documentService, ChainService chainService) {
         this.userService = userService;
         this.documentService = documentService;
+        this.chainService = chainService;
     }
 
     @GetMapping("/docs/docInfo")
@@ -49,5 +52,10 @@ public class ApprovalServerController {
     public void addDocument(@RequestBody DocumentModel documentModel) {
         documentService.addDocument(documentModel);
     }
-      
+
+    @GetMapping("/chain/users")
+    public List<UserModel> getUsersByDocuments(@RequestParam Integer documentId) {
+        return chainService.getUsersByDocument(documentId);
+    }
+
 }

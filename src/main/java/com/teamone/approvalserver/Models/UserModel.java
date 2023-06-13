@@ -2,6 +2,7 @@ package com.teamone.approvalserver.Models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,7 +20,8 @@ public class UserModel {
     @Column(name = "email", nullable = true, length = 100)
     private String email;
 
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userId")
+    private List<ChainModel> chainList;
 
     public int getUserId() {
         return userId;
