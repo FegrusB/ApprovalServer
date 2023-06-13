@@ -71,4 +71,10 @@ public class DocumentService {
         currentDoc.UpdateToNextApprover();
         documentRepository.save(currentDoc);
     }
+
+    public void addDocument(DocumentModel documentModel) {
+
+        documentRepository.save(documentModel);
+
+    }
 }

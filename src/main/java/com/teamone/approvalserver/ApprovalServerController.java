@@ -37,4 +37,9 @@ public class ApprovalServerController {
         documentService.approveDocument(userId, documentId);
     }
 
+
+    @PostMapping("/addDocument")
+    public void addDocument(@RequestBody DocumentModel documentModel) {
+        documentService.addDocument(documentModel);
+    }
 }
