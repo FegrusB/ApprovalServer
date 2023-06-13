@@ -2,8 +2,10 @@ package com.teamone.approvalserver.Services;
 
 import com.teamone.approvalserver.Models.ChainModel;
 import com.teamone.approvalserver.Models.DocumentModel;
+import com.teamone.approvalserver.Models.UserModel;
 import com.teamone.approvalserver.Repositories.ChainRepository;
 import com.teamone.approvalserver.Repositories.DocumentRepository;
+import com.teamone.approvalserver.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +21,12 @@ public class DocumentService {
 
     private final DocumentRepository documentRepository;
     private final ChainRepository chainRepository;
-
+    private final UserRepository userRepository;
     @Autowired
-    public DocumentService(DocumentRepository documentRepository, ChainRepository chainRepository) {
+    public DocumentService(DocumentRepository documentRepository, ChainRepository chainRepository, UserRepository userRepository) {
         this.documentRepository = documentRepository;
         this.chainRepository = chainRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -41,8 +44,15 @@ public class DocumentService {
      * @return
      */
     public List<Optional<DocumentModel>> getDocumentsByUser(Integer userId) {
-       return documentRepository.findAllByChainList_userId(userId);
+       Optional <UserModel> userModelOptional = userRepository.findById(userId);
+        if (!userModelOptional.isPresent()) {
+// TODO
+        }
+        UserModel userModel = userModelOptional.get();
+
+       return documentRepository.findAllByChainList_userId(userModel);
     }
+
 
     /**
      * This method will submit a users approval and update the chain and document tables in the database
@@ -60,9 +70,13 @@ public class DocumentService {
         if (userId.equals(currentDoc.getCurrentApprover())) {
 //          TODO
         }
-
+        Optional <UserModel> userModelOptional = userRepository.findById(userId);
+        if (!userModelOptional.isPresent()) {
+// TODO
+        }
+        UserModel userModel = userModelOptional.get();
         //set chain (approved = true, timestamp = now)
-        ChainModel currentChain = chainRepository.getByDocumentIdAndUserId(currentDoc, userId);
+        ChainModel currentChain = chainRepository.getByDocumentIdAndUserId(currentDoc, userModel);
         currentChain.setApproved(true);
         currentChain.setTimeStamp(new Timestamp(System.currentTimeMillis()));
         chainRepository.save(currentChain);

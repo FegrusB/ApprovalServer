@@ -1,6 +1,8 @@
 package com.teamone.approvalserver.Services;
 
+import com.teamone.approvalserver.Models.DocumentModel;
 import com.teamone.approvalserver.Models.UserModel;
+import com.teamone.approvalserver.Repositories.DocumentRepository;
 import com.teamone.approvalserver.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,15 +15,11 @@ import java.util.Optional;
  */
 @Service
 public class UserService {
-    private final  UserRepository userRepository;
-
+    private final DocumentRepository documentRepository;
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(DocumentRepository documentRepository) {
+
+        this.documentRepository = documentRepository;
     }
 
-    public List<Optional<UserModel>> getUsersByDocument(Integer documentId) {
-
-        return userRepository.findAllByChainList_documentId(documentId);
-    }
 }

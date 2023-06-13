@@ -10,5 +10,5 @@ import java.util.Optional;
  * This Repository Inserts user objects into the database.
  */
 public interface UserRepository extends JpaRepository<UserModel, Integer> {
-    List<Optional<UserModel>> findAllByChainList_documentId(Integer documentId);
+
 }
