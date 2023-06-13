@@ -71,4 +71,12 @@ public class DocumentService {
         currentDoc.UpdateToNextApprover();
         documentRepository.save(currentDoc);
     }
+
+    /**
+     * This method deletes a document from the document table by documentId.
+     * @param documentId
+     */
+    public void deleteDocument(Integer documentId) {
+        documentRepository.deleteById(documentId);
+    }
 }

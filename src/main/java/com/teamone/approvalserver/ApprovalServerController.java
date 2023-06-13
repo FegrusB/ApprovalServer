@@ -37,4 +37,8 @@ public class ApprovalServerController {
         documentService.approveDocument(userId, documentId);
     }
 
+    @DeleteMapping("/delete/{documentId}")
+    public void deleteDocument(@PathVariable(name="documentId") Integer documentId) {
+        documentService.deleteDocument(documentId);
+    }
 }
