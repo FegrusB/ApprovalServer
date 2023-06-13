@@ -71,4 +71,15 @@ public class DocumentService {
         currentDoc.UpdateToNextApprover();
         documentRepository.save(currentDoc);
     }
+
+    public void addDocument(DocumentModel documentModel) {
+        //save document to the database and auto generate an ID
+        documentRepository.save(documentModel);
+
+        //itterate through the chainList adding document ID and then adding to database
+        for(ChainModel chainModel : documentModel.getChainList()) {
+            chainModel.setDocumentId(documentModel);
+            chainRepository.save(chainModel);
+        }
+    }
 }
