@@ -1,5 +1,6 @@
 package com.teamone.approvalserver.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -43,6 +44,11 @@ public class UserModel {
 
     public void setEmail(String email) {this.email = email;}
 
+    @JsonIgnore
+    public List<ChainModel> getChainList() {
+        return chainList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,6 +57,9 @@ public class UserModel {
         return userId == that.userId && Objects.equals(userName, that.userName) && Objects.equals(email, that.email);
     }
 
+    public boolean equals(Integer userId) {
+        return userId == getUserId();
+    }
     @Override
     public int hashCode() {
         return Objects.hash(userId, userName, email);

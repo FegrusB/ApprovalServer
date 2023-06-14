@@ -66,7 +66,7 @@ public class DocumentService {
      * @param userId
      * @param documentId
      */
-    public void approveDocument(Integer userId, Integer documentId) throws FileNotFoundException {
+    public void approveDocument(Integer userId, Integer documentId){
         //check user table for position
         Optional<DocumentModel> currentDocOptional = documentRepository.findById(documentId);
         if (!currentDocOptional.isPresent()) {
@@ -83,27 +83,37 @@ public class DocumentService {
         }
         UserModel userModel = userModelOptional.get();
         //set chain (approved = true, timestamp = now)
-        ChainModel currentChain = chainRepository.getByDocumentIdAndUserId(currentDoc, userModel);
-        currentChain.setApproved(true);
-        currentChain.setTimeStamp(new Timestamp(System.currentTimeMillis()));
-        chainRepository.save(currentChain);
+
+        ChainModel chain = null;
+
+        for (ChainModel chainLoop: userModel.getChainList()){
+            if(chainLoop.getDocumentId().getDocumentId() == documentId){
+                chain = chainLoop;
+            }
+        }
+        chain.setApproved(true);
+        chain.setTimeStamp(new Timestamp(System.currentTimeMillis()));
+
+        chainRepository.save(chain);
 
         //set document current user = next in chain
-        if(currentDoc.getChainList().get(currentDoc.getChainList().size()).getUserId().equals(userId)) {
+        if(currentDoc.getChainList().get( (currentDoc.getChainList().size()) - 1).getUserId().equals(userId)) {
             UserModel originator = userRepository.getReferenceById(currentDoc.getOriginator());
-            File auditReport = ResourceUtils.getFile("V1ApprovedAudit.pdf");
+            File auditReport = null;
+            try {
+                auditReport = ResourceUtils.getFile("classpath:V1ApprovedAudit.pdf");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             emailService.sendEmail(new EmailDetails(originator.getEmail(),currentDoc.getProject() + "-" + currentDoc.getCustomer() + "-" + currentDoc.getName(),"Audit document, see attached",auditReport));
             currentDoc.setFinished(true);
         } else {
             currentDoc.UpdateToNextApprover();
+            UserModel next = userRepository.findById(currentDoc.getCurrentApprover()).get();
+            emailService.sendEmail(new EmailDetails(next.getEmail(),currentDoc.getProject() + "-" + currentDoc.getCustomer() + "-" + currentDoc.getName(),"This document is awaiting your approval"));
             documentRepository.save(currentDoc);
         }
 
-
-        //currentUser userRepository.findById()
-
-
-        emailService.sendEmail(new EmailDetails("fergus@beckerleg.co.uk","test","test"));
 
     }
   
