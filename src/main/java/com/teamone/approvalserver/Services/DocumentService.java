@@ -86,8 +86,15 @@ public class DocumentService {
         chainRepository.save(currentChain);
 
         //set document current user = next in chain
-        currentDoc.UpdateToNextApprover();
-        documentRepository.save(currentDoc);
+        if(currentDoc.getChainList().get(currentDoc.getChainList().size()).getUserId().equals(userId)) {
+            UserModel originator = userRepository.getReferenceById(currentDoc.getOriginator());
+            emailService.sendEmail(new EmailDetails(originator.getEmail(),currentDoc.getProject() + "-" + currentDoc.getCustomer() + "-" + currentDoc.getName(),"Audit document, see attached"));
+            currentDoc.setFinished(true);
+        } else {
+            currentDoc.UpdateToNextApprover();
+            documentRepository.save(currentDoc);
+        }
+
 
         //currentUser userRepository.findById()
 

@@ -35,6 +35,10 @@ public class DocumentModel {
     @Column(name = "originator", nullable = true)
     private Integer originator;
 
+    @Basic
+    @Column(name = "finished", nullable = true)
+    private Boolean finished;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "documentId")
     private List<ChainModel> chainList;
 
@@ -118,6 +122,14 @@ public class DocumentModel {
     }
 
     public List<ChainModel> getChainList() {return chainList;}
+
+    public Boolean getFinished() {
+        return finished;
+    }
+
+    public void setFinished(Boolean finished) {
+        this.finished = finished;
+    }
 
 
     @Override
