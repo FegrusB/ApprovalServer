@@ -65,4 +65,13 @@ public class ApprovalServerController {
     }
 
 
+    @PostMapping("/addComment")
+    public void addComment(@RequestParam Integer userId, @RequestParam Integer documentId, @RequestBody String comment) {
+        chainService.addComment(userId, documentId, comment);
+    }
+    // taking in a comment
+    // rolling back the chain to the begining
+
+
+
 }

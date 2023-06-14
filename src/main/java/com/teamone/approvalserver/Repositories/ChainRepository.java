@@ -13,6 +13,4 @@ import org.springframework.stereotype.Repository;
 public interface ChainRepository extends JpaRepository<ChainModel, Integer> {
     ChainModel getByDocumentIdAndUserId(DocumentModel documentId, UserModel userModel);
 
-
-
 }

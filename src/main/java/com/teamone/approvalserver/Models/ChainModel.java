@@ -30,16 +30,23 @@ public class ChainModel {
     @Basic
     @Column(name = "approved", nullable = true)
     private boolean approved;
+
+    @Basic
+    @Column(name="comment", nullable = true)
+    private String comment;
+
+
     @Basic
     @Column(name = "time_stamp", nullable = true)
     private Timestamp timeStamp;
 
-    public ChainModel(int id, DocumentModel documentId, UserModel userId, int position, boolean approved, Timestamp timeStamp) {
+    public ChainModel(int id, DocumentModel documentId, UserModel userId, int position, boolean approved, String comment, Timestamp timeStamp) {
         this.id = id;
         this.documentId = documentId;
         this.userId = userId;
         this.position = position;
         this.approved = approved;
+        this.comment = comment;
         this.timeStamp = timeStamp;
     }
 
@@ -91,6 +98,14 @@ public class ChainModel {
 
     public void setTimeStamp(Timestamp timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     @Override
