@@ -14,5 +14,6 @@ import java.util.Optional;
 @Repository
 public interface DocumentRepository extends JpaRepository<DocumentModel, Integer> {
     List<Optional<DocumentModel>> findAllByChainList_userId(UserModel userId);
+    List<Optional<DocumentModel>> findAllByOriginator(int userId);
 
 }
