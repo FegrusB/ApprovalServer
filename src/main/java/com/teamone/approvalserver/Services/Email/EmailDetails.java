@@ -1,5 +1,7 @@
 package com.teamone.approvalserver.Services.Email;
 
+import java.io.File;
+
 public class EmailDetails{
 
 
@@ -10,10 +12,22 @@ public class EmailDetails{
     String subject;
     String content;
 
+    File attachment;
+
     public EmailDetails(String to,String subject,String content){
         this.to = to;
         this.subject = subject;
         this.content = content;
+    }
+    public EmailDetails(String to,String subject,String content,File attachment){
+        this.to = to;
+        this.subject = subject;
+        this.content = content;
+        this.attachment = attachment;
+    }
+
+    public File getAttachment() {
+        return attachment;
     }
 
     public String getHost() {

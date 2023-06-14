@@ -1,6 +1,8 @@
 package com.teamone.approvalserver.Services.Email;
 
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -34,14 +36,28 @@ public class EmailService{
             // Set Subject: header field
             message.setSubject(emailDetails.getSubject());
 
+
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(emailDetails.getContent(),"text/html; charset=utf-8");
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+
+            if(emailDetails.attachment != null){
+                MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+                attachmentBodyPart.attachFile(emailDetails.getAttachment());
+                multipart.addBodyPart(attachmentBodyPart);
+            }
+
             // Send the actual HTML message, as big as you like
-            message.setContent(emailDetails.getContent(), "text/html");
+            message.setContent(multipart);
 
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
