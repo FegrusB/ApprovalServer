@@ -23,6 +23,10 @@ public class UserModel {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userId")
     private List<ChainModel> chainList;
 
+    private UserModel(){}
+
+    public UserModel(Integer userId) {this.userId = userId;}
+
     public int getUserId() {
         return userId;
     }
