@@ -10,7 +10,10 @@ import com.teamone.approvalserver.Repositories.UserRepository;
 import com.teamone.approvalserver.Services.Email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -63,7 +66,7 @@ public class DocumentService {
      * @param userId
      * @param documentId
      */
-    public void approveDocument(Integer userId, Integer documentId) {
+    public void approveDocument(Integer userId, Integer documentId) throws FileNotFoundException {
         //check user table for position
         Optional<DocumentModel> currentDocOptional = documentRepository.findById(documentId);
         if (!currentDocOptional.isPresent()) {
@@ -88,7 +91,8 @@ public class DocumentService {
         //set document current user = next in chain
         if(currentDoc.getChainList().get(currentDoc.getChainList().size()).getUserId().equals(userId)) {
             UserModel originator = userRepository.getReferenceById(currentDoc.getOriginator());
-            emailService.sendEmail(new EmailDetails(originator.getEmail(),currentDoc.getProject() + "-" + currentDoc.getCustomer() + "-" + currentDoc.getName(),"Audit document, see attached"));
+            File auditReport = ResourceUtils.getFile("V1ApprovedAudit.pdf");
+            emailService.sendEmail(new EmailDetails(originator.getEmail(),currentDoc.getProject() + "-" + currentDoc.getCustomer() + "-" + currentDoc.getName(),"Audit document, see attached",auditReport));
             currentDoc.setFinished(true);
         } else {
             currentDoc.UpdateToNextApprover();
