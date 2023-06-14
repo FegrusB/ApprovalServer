@@ -1,5 +1,6 @@
 package com.teamone.approvalserver.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -35,6 +36,9 @@ public class DocumentModel {
     @Column(name = "originator", nullable = true)
     private Integer originator;
 
+    @Basic
+    @Column(name = "finished", nullable = true)
+    private Boolean finished;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "documentId")
     private List<ChainModel> chainList;
 
@@ -52,6 +56,12 @@ public class DocumentModel {
             i++;
         }
     }
+
+    @JsonIgnore
+    public Boolean getFinished() {return finished;}
+
+    @JsonIgnore
+    public void setFinished(Boolean finished) {this.finished = finished;}
 
     public int getDocumentId() {
         return documentId;
