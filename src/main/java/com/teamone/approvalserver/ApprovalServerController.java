@@ -5,6 +5,7 @@ import com.teamone.approvalserver.Models.UserModel;
 import com.teamone.approvalserver.Services.ChainService;
 import com.teamone.approvalserver.Services.DocumentService;
 import com.teamone.approvalserver.Services.UserService;
+import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,5 +59,10 @@ public class ApprovalServerController {
     public List<UserModel> getUsersByDocuments(@RequestParam Integer documentId) {
         return chainService.getUsersByDocument(documentId);
     }
+    @GetMapping("/docs/byOriginator")
+    public List<Optional<DocumentModel>> getDocumentsByOriginator(@RequestParam Integer originator) {
+        return documentService.getDocumentsByOriginator(originator);
+    }
+
 
 }
