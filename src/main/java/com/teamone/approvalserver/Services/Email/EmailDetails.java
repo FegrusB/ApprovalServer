@@ -1,4 +1,4 @@
-package com.teamone.approvalserver.Models;
+package com.teamone.approvalserver.Services.Email;
 
 public class EmailDetails{
 

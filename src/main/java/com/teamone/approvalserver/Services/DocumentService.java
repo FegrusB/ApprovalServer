@@ -2,11 +2,12 @@ package com.teamone.approvalserver.Services;
 
 import com.teamone.approvalserver.Models.ChainModel;
 import com.teamone.approvalserver.Models.DocumentModel;
-import com.teamone.approvalserver.Models.EmailDetails;
+import com.teamone.approvalserver.Services.Email.EmailDetails;
 import com.teamone.approvalserver.Models.UserModel;
 import com.teamone.approvalserver.Repositories.ChainRepository;
 import com.teamone.approvalserver.Repositories.DocumentRepository;
 import com.teamone.approvalserver.Repositories.UserRepository;
+import com.teamone.approvalserver.Services.Email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

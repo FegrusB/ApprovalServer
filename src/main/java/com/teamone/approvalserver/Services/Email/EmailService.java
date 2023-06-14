@@ -1,24 +1,24 @@
-package com.teamone.approvalserver.Services;
+package com.teamone.approvalserver.Services.Email;
 
-import com.teamone.approvalserver.Models.EmailDetails;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.activation.*;
 
 
 @Service
 public class EmailService{
     public void sendEmail(EmailDetails emailDetails) {
 
-        // Get system properties
         Properties props = new Properties();
         props.put("mail.smtp.port", 587);
         props.put("mail.smtp.host", emailDetails.getHost());
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", true);
-        Session session = Session.getDefaultInstance(props);
+        SmtpAuthenticator authenticator = new SmtpAuthenticator();
+        authenticator.getPasswordAuthentication();
+
+        Session session = Session.getDefaultInstance(props,authenticator);
 
 
         try {
