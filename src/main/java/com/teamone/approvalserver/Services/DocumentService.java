@@ -111,4 +111,14 @@ public class DocumentService {
             chainRepository.save(chainModel);
         }
     }
+
+    /**
+     * This method gets all documents created by an originator
+     * @param originator
+     * @return
+     */
+    public List<Optional<DocumentModel>> getDocumentsByOriginator(Integer originator) {
+        return documentRepository.findAllByOriginator(originator);
+    }
+
 }
