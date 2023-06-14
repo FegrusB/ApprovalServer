@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ApprovalServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ApprovalServerApplication.class, "--debug");
+        SpringApplication.run(ApprovalServerApplication.class, args);
     }
 
 }

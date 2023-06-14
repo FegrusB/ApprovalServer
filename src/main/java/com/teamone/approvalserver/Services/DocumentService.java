@@ -2,6 +2,7 @@ package com.teamone.approvalserver.Services;
 
 import com.teamone.approvalserver.Models.ChainModel;
 import com.teamone.approvalserver.Models.DocumentModel;
+import com.teamone.approvalserver.Models.EmailDetails;
 import com.teamone.approvalserver.Models.UserModel;
 import com.teamone.approvalserver.Repositories.ChainRepository;
 import com.teamone.approvalserver.Repositories.DocumentRepository;
@@ -22,11 +23,13 @@ public class DocumentService {
     private final DocumentRepository documentRepository;
     private final ChainRepository chainRepository;
     private final UserRepository userRepository;
+    private final EmailService emailService;
     @Autowired
-    public DocumentService(DocumentRepository documentRepository, ChainRepository chainRepository, UserRepository userRepository) {
+    public DocumentService(DocumentRepository documentRepository, ChainRepository chainRepository, UserRepository userRepository,EmailService emailService) {
         this.documentRepository = documentRepository;
         this.chainRepository = chainRepository;
         this.userRepository = userRepository;
+        this.emailService = emailService;
     }
 
     /**
@@ -84,6 +87,12 @@ public class DocumentService {
         //set document current user = next in chain
         currentDoc.UpdateToNextApprover();
         documentRepository.save(currentDoc);
+
+        //currentUser userRepository.findById()
+
+
+        emailService.sendEmail(new EmailDetails("fergus@beckerleg.co.uk","test","test"));
+
     }
   
     /**
