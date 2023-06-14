@@ -57,5 +57,10 @@ public class ApprovalServerController {
     public List<UserModel> getUsersByDocuments(@RequestParam Integer documentId) {
         return chainService.getUsersByDocument(documentId);
     }
+    @GetMapping("/docs/byOriginator")
+    public List<Optional<DocumentModel>> getDocumentsByOriginator(@RequestParam Integer originator) {
+        return documentService.getDocumentsByOriginator(originator);
+    }
+
 
 }
