@@ -54,7 +54,12 @@ public class ChainModel {
         return documentId;
     }
 
-    @JsonIgnore
+
+    public void setUserId( UserModel userId) {
+        this.userId = userId;
+    }
+
+
     public UserModel getUserId() {return userId;}
 
     @JsonIgnore
@@ -62,10 +67,7 @@ public class ChainModel {
         this.documentId = documentId;
     }
 
-    @JsonIgnore
-    public void setUserId( UserModel userId) {
-        this.userId = userId;
-    }
+
 
     public int getPosition() {
         return position;
