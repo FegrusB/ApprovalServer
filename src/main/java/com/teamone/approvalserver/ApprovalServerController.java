@@ -5,6 +5,7 @@ import com.teamone.approvalserver.Models.UserModel;
 import com.teamone.approvalserver.Services.ChainService;
 import com.teamone.approvalserver.Services.DocumentService;
 import com.teamone.approvalserver.Services.UserService;
+import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/V1Approved")
 public class ApprovalServerController {
 
