@@ -44,12 +44,7 @@ public class DocumentService {
      * @return
      */
     public List<Optional<DocumentModel>> getDocumentsByUser(Integer userId) {
-       Optional <UserModel> userModelOptional = userRepository.findById(userId);
-        if (!userModelOptional.isPresent()) {
-// TODO
-        }
-        UserModel userModel = userModelOptional.get();
-
+       UserModel userModel = userRepository.findById(userId).get();
        return documentRepository.findAllByChainList_userId(userModel);
     }
 
@@ -60,21 +55,11 @@ public class DocumentService {
      * @param documentId
      */
     public void approveDocument(Integer userId, Integer documentId) {
-        //check user table for position
-        Optional<DocumentModel> currentDocOptional = documentRepository.findById(documentId);
-        if (!currentDocOptional.isPresent()) {
-//          TODO
-        }
 
-        DocumentModel currentDoc = currentDocOptional.get();
-        if (userId.equals(currentDoc.getCurrentApprover())) {
-//          TODO
-        }
-        Optional <UserModel> userModelOptional = userRepository.findById(userId);
-        if (!userModelOptional.isPresent()) {
-// TODO
-        }
-        UserModel userModel = userModelOptional.get();
+        //check user table for position
+        DocumentModel currentDoc = documentRepository.findById(documentId).get();
+        UserModel userModel = userRepository.findById(userId).get();
+
         //set chain (approved = true, timestamp = now)
         ChainModel currentChain = chainRepository.getByDocumentIdAndUserId(currentDoc, userModel);
         currentChain.setApproved(true);
@@ -95,9 +80,7 @@ public class DocumentService {
         DocumentModel documentModel = documentRepository.getReferenceById(documentId);
 
         //itterate through the chainlist and delete each chain entity
-        for(ChainModel chainModel : documentModel.getChainList()) {
-            chainRepository.delete(chainModel);
-        }
+        chainRepository.deleteAll(documentModel.getChainList());
         documentRepository.delete(documentModel);
      }
   
