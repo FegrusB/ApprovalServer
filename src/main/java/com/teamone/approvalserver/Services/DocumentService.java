@@ -8,12 +8,13 @@ import com.teamone.approvalserver.Repositories.ChainRepository;
 import com.teamone.approvalserver.Repositories.DocumentRepository;
 import com.teamone.approvalserver.Repositories.UserRepository;
 import com.teamone.approvalserver.Services.Email.EmailService;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -61,7 +62,7 @@ public class DocumentService {
      * @param userId
      * @param documentId
      */
-    public void approveDocument(Integer userId, Integer documentId) {
+    public void approveDocument(Integer userId, Integer documentId){
 
         //check user table for position
         DocumentModel currentDoc = documentRepository.findById(documentId).get();
@@ -84,14 +85,30 @@ public class DocumentService {
         //set document current user = next in chain
         if(currentDoc.getChainList().get( (currentDoc.getChainList().size()) - 1).getUserId().equals(userId)) {
             UserModel originator = userRepository.getReferenceById(currentDoc.getOriginator());
+
+            ClassPathResource classPathResource = new ClassPathResource("V1ApprovedAudit.pdf");
+            InputStream inputStream = null;
             File auditReport = null;
             try {
-                auditReport = ResourceUtils.getFile("classpath:V1ApprovedAudit.pdf");
-            } catch (FileNotFoundException e) {
+                inputStream = classPathResource.getInputStream();
+                auditReport = File.createTempFile("test", ".txt");
+
+
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
+            try (OutputStream outputStream = new FileOutputStream(auditReport)) {
+                IOUtils.copy(inputStream, outputStream);
+            } catch (IOException e){
+                throw new RuntimeException(e);
+            } finally {
+                IOUtils.closeQuietly(inputStream);
+            }
+
             emailService.sendEmail(new EmailDetails(originator.getEmail(),currentDoc.getProject() + "-" + currentDoc.getCustomer() + "-" + currentDoc.getName(),"Audit document, see attached",auditReport));
             currentDoc.setFinished(true);
+            auditReport.deleteOnExit();
         } else {
             currentDoc.UpdateToNextApprover();
             UserModel next = userRepository.findById(currentDoc.getCurrentApprover()).get();
