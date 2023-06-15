@@ -51,12 +51,7 @@ public class DocumentService {
      * @return
      */
     public List<Optional<DocumentModel>> getDocumentsByUser(Integer userId) {
-       Optional <UserModel> userModelOptional = userRepository.findById(userId);
-        if (!userModelOptional.isPresent()) {
-// TODO
-        }
-        UserModel userModel = userModelOptional.get();
-
+       UserModel userModel = userRepository.findById(userId).get();
        return documentRepository.findAllByChainList_userId(userModel);
     }
 
@@ -66,22 +61,12 @@ public class DocumentService {
      * @param userId
      * @param documentId
      */
-    public void approveDocument(Integer userId, Integer documentId){
-        //check user table for position
-        Optional<DocumentModel> currentDocOptional = documentRepository.findById(documentId);
-        if (!currentDocOptional.isPresent()) {
-//          TODO
-        }
+    public void approveDocument(Integer userId, Integer documentId) {
 
-        DocumentModel currentDoc = currentDocOptional.get();
-        if (userId.equals(currentDoc.getCurrentApprover())) {
-//          TODO
-        }
-        Optional <UserModel> userModelOptional = userRepository.findById(userId);
-        if (!userModelOptional.isPresent()) {
-// TODO
-        }
-        UserModel userModel = userModelOptional.get();
+        //check user table for position
+        DocumentModel currentDoc = documentRepository.findById(documentId).get();
+        UserModel userModel = userRepository.findById(userId).get();
+
         //set chain (approved = true, timestamp = now)
 
         ChainModel chain = null;
@@ -116,7 +101,7 @@ public class DocumentService {
 
 
     }
-  
+
     /**
      * This method deletes a document from the document table by documentId.
      * @param documentId
@@ -126,12 +111,10 @@ public class DocumentService {
         DocumentModel documentModel = documentRepository.getReferenceById(documentId);
 
         //itterate through the chainlist and delete each chain entity
-        for(ChainModel chainModel : documentModel.getChainList()) {
-            chainRepository.delete(chainModel);
-        }
+        chainRepository.deleteAll(documentModel.getChainList());
         documentRepository.delete(documentModel);
      }
-  
+
     public void addDocument(DocumentModel documentModel) {
         //save document to the database and auto generate an ID
         documentRepository.save(documentModel);

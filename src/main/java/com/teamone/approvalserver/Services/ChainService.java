@@ -26,13 +26,7 @@ public class ChainService {
     public List<UserModel> getUsersByDocument(Integer documentId) {
         List<UserModel> users = new ArrayList<>();
         //check user table for position
-        Optional<DocumentModel> currentDocOptional = documentRepository.findById(documentId);
-        if (!currentDocOptional.isPresent()) {
-// TODO
-        }
-
-        DocumentModel currentDoc = currentDocOptional.get();
-
+        DocumentModel currentDoc = documentRepository.findById(documentId).get();
         for(ChainModel chainModel: currentDoc.getChainList()){
             users.add(chainModel.getUserId());
         }

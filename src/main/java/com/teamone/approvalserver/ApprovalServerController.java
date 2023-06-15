@@ -4,8 +4,6 @@ import com.teamone.approvalserver.Models.DocumentModel;
 import com.teamone.approvalserver.Models.UserModel;
 import com.teamone.approvalserver.Services.ChainService;
 import com.teamone.approvalserver.Services.DocumentService;
-import com.teamone.approvalserver.Services.UserService;
-import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +16,9 @@ import java.util.Optional;
 public class ApprovalServerController {
 
     private final DocumentService documentService;
-    private final UserService userService;
     private final ChainService chainService;
     @Autowired
-    public ApprovalServerController(UserService userService, DocumentService documentService, ChainService chainService) {
-        this.userService = userService;
+    public ApprovalServerController(DocumentService documentService, ChainService chainService) {
         this.documentService = documentService;
         this.chainService = chainService;
     }
