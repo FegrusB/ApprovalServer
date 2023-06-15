@@ -130,15 +130,6 @@ public class DocumentModel {
 
     public List<ChainModel> getChainList() {return chainList;}
 
-    public Boolean getFinished() {
-        return finished;
-    }
-
-    public void setFinished(Boolean finished) {
-        this.finished = finished;
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
