@@ -50,7 +50,7 @@ public class DocumentService {
         }
         UserModel userModel = userModelOptional.get();
 
-       return documentRepository.findAllByChainList_userId(userModel);
+        return documentRepository.findAllByCurrentApprover(userModel.getUserId());
     }
 
 
