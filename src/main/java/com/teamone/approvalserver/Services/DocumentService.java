@@ -51,8 +51,8 @@ public class DocumentService {
      * @return
      */
     public List<Optional<DocumentModel>> getDocumentsByUser(Integer userId) {
-       UserModel userModel = userRepository.findById(userId).get();
-       return documentRepository.findAllByChainList_userId(userModel);
+        UserModel userModel = userRepository.findById(userId).get();
+        return documentRepository.findAllByCurrentApprover(userModel.getUserId());
     }
 
 

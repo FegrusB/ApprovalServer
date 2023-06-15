@@ -15,5 +15,6 @@ import java.util.Optional;
 public interface DocumentRepository extends JpaRepository<DocumentModel, Integer> {
     List<Optional<DocumentModel>> findAllByChainList_userId(UserModel userId);
     List<Optional<DocumentModel>> findAllByOriginator(int userId);
+    List<Optional<DocumentModel>> findAllByCurrentApprover(int userId);
 
 }
