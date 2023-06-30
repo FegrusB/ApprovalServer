@@ -1,11 +1,10 @@
-package com.teamone.approvalserver.bdd.steps;
+package com.teamone.approvalserver.steps;
 
 import com.teamone.approvalserver.Models.DocumentModel;
 import com.teamone.approvalserver.Repositories.DocumentRepository;
-import com.teamone.approvalserver.bdd.CucumberBootstrap;
+import com.teamone.approvalserver.CucumberBootstrap;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.DataTableType;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;

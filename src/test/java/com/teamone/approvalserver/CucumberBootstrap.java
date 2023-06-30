@@ -1,4 +1,4 @@
-package com.teamone.approvalserver.bdd;
+package com.teamone.approvalserver;
 
 
 import io.cucumber.spring.CucumberContextConfiguration;
