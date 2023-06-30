@@ -42,3 +42,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/target/cucumber-reports/Cucumber.html
+/target/cucumber-reports/Cucumber.json
+/target/cucumber-reports/Cucumber.xml
