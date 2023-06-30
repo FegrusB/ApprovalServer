@@ -43,6 +43,21 @@ public class DocumentModel {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "documentId")
     private List<ChainModel> chainList;
 
+    public DocumentModel(){}
+
+
+    public DocumentModel(int documentId, String customer, String project, String name, String description, String documentLink, Integer currentApprover, Integer originator, Boolean finished) {
+        this.documentId = documentId;
+        this.customer = customer;
+        this.project = project;
+        this.name = name;
+        this.description = description;
+        this.documentLink = documentLink;
+        this.currentApprover = currentApprover;
+        this.originator = originator;
+        this.finished = finished;
+    }
+
     /**
      * This method will update the document current approver to the next user in the chain
      */
